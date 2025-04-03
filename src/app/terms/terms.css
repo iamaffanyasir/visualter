@@ -1,0 +1,138 @@
+.terms {
+  background-color: #000B1D;
+  min-height: 100vh;
+  color: #ffffff;
+}
+
+.terms__hero {
+  position: relative;
+  height: 40vh;
+  min-height: 300px;
+  background: linear-gradient(135deg, #000B1D, #001F3F);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.terms__hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(74, 144, 226, 0.1) 0%, transparent 70%);
+  animation: pulse 4s ease-in-out infinite;
+}
+
+.terms__hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  padding: 0 2rem;
+}
+
+.terms__hero-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  background: linear-gradient(90deg, #ffffff, #e0e7ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.terms__hero-description {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.terms__container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.terms__content {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 20px;
+  padding: 3rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.terms__section {
+  margin-bottom: 3rem;
+}
+
+.terms__section:last-child {
+  margin-bottom: 0;
+}
+
+.terms__section h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #4A90E2;
+}
+
+.terms__section p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 1rem;
+}
+
+.terms__section ul {
+  list-style: none;
+  padding-left: 1.5rem;
+  margin: 1rem 0;
+}
+
+.terms__section li {
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+.terms__section li::before {
+  content: '•';
+  color: #4A90E2;
+  position: absolute;
+  left: -1.5rem;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+}
+
+@media (max-width: 768px) {
+  .terms__hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .terms__container {
+    padding: 2rem 1rem;
+  }
+  
+  .terms__content {
+    padding: 1.5rem;
+  }
+  
+  .terms__section h2 {
+    font-size: 1.5rem;
+  }
+  
+  .terms__section p {
+    font-size: 1rem;
+  }
+}

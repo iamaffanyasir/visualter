@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
 
+# Primary domain
+Host: https://visualter.com
+
+# Sitemap
 Sitemap: https://visualter.com/sitemap.xml

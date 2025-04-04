@@ -2,10 +2,14 @@
 module.exports = {
   siteUrl: 'https://visualter.com',
   generateRobotsTxt: true,
-  generateIndexSitemap: true,
+  generateIndexSitemap: false,
+  outDir: 'public',
   robotsTxtOptions: {
-    additionalSitemaps: [
-      'https://visualter.com/sitemap.xml'
+    policies: [
+      {
+        userAgent: '*',
+        allow: '/'
+      }
     ]
   }
 };

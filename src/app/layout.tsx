@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer/Footer";
 import Link from "next/link";
+import { WhatsappButton } from "@/components/WhatsappButton/WhatsappButton";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -52,23 +53,7 @@ export const metadata: Metadata = {
     canonical: 'https://visualter.com'
   },
   icons: {
-    icon: [
-      { url: '/favicon.ico', sizes: 'any' },
-      { url: '/icon.svg', type: 'image/svg+xml' },
-      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
-      { url: '/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
-      { url: '/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' },
-    ],
-    apple: [
-      { url: '/apple-icon.png', type: 'image/png' }
-    ],
-    other: [
-      {
-        rel: 'mask-icon',
-        url: '/icon.svg',
-      },
-    ],
+    icon: 'favicon.ico'
   },
 };
 
@@ -89,6 +74,7 @@ export default function RootLayout({
         <Navbar />
         <main>{children}</main>
         <Footer />
+        <WhatsappButton />
       </body>
     </html>
   );

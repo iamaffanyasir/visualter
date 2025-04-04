@@ -1,50 +1,51 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import './Header.css';
 
 const carouselData = [
   {
     title: 'WEBSITE DEVELOPMENT',
     description: 'Creating intuitive and engaging user experiences through modern design principles and innovative interfaces',
-    buttonText: 'Learn More',
-    secondaryButtonText: 'View Projects',
+    buttonText: 'View Projects',
+    // secondaryButtonText: '',
     image: '/images/carousel/website-dev.jpg',
     stats: {
-      main: '250+',
+      main: '100+',
       sub: 'Projects Completed'
     }
   },
   {
     title: 'AI & MACHINE LEARNING',
     description: 'Leveraging artificial intelligence and machine learning to build intelligent solutions for complex problems',
-    buttonText: 'Explore',
-    secondaryButtonText: 'Our Solutions',
+    buttonText: 'View Projects',
+    // secondaryButtonText: 'Our Solutions',
     image: '/images/carousel/ai-ml.jpg',
     stats: {
-      main: '98%',
+      main: '99.7%',
       sub: 'Accuracy Rate'
     }
   },
   {
     title: 'UI & UX DESIGNS',
     description: 'Crafting beautiful and intuitive user interfaces that deliver exceptional user experiences',
-    buttonText: 'Discover',
-    secondaryButtonText: 'See Designs',
+    buttonText: 'View Projects',
+    // secondaryButtonText: 'See Designs',
     image: '/images/carousel/ui-ux.jpg',
     stats: {
-      main: '1M+',
-      sub: 'Happy Users'
+      main: '30+',
+      sub: 'Happy Clients'
     }
   },
   {
     title: 'SEO & ANALYTICS',
     description: 'Optimizing digital presence and driving growth through data-driven insights and strategic marketing',
-    buttonText: 'Get Started',
-    secondaryButtonText: 'Case Studies',
+    buttonText: 'View Projects',
+    // secondaryButtonText: 'Case Studies',
     image: '/images/carousel/seo.jpg',
     stats: {
-      main: '200%',
+      main: '890%',
       sub: 'Avg. Growth Rate'
     }
   }
@@ -79,10 +80,10 @@ export const Header = () => {
           <h1 className="header__title">{carouselData[currentSlide].title}</h1>
           <p className="header__description">{carouselData[currentSlide].description}</p>
           <div className="header__buttons">
-            <button className="header__button header__button--primary">
+            <Link href="/portfolio" className="header__button header__button--primary">
               {carouselData[currentSlide].buttonText}
               <span className="header__button-icon">→</span>
-            </button>
+            </Link>
             <button className="header__button header__button--secondary">
               {carouselData[currentSlide].secondaryButtonText}
             </button>

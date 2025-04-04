@@ -45,7 +45,7 @@ const carouselData = [
     // secondaryButtonText: 'Case Studies',
     image: '/images/carousel/seo.jpg',
     stats: {
-      main: '890%',
+      main: '89%',
       sub: 'Avg. Growth Rate'
     }
   }
@@ -84,9 +84,6 @@ export const Header = () => {
               {carouselData[currentSlide].buttonText}
               <span className="header__button-icon">→</span>
             </Link>
-            <button className="header__button header__button--secondary">
-              {carouselData[currentSlide].secondaryButtonText}
-            </button>
           </div>
           <div className="header__stats">
             <div className="header__stat">

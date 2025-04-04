@@ -50,7 +50,12 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: 'https://visualter.com'
-  }
+  },
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/apple-icon.png',
+    shortcut: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({
@@ -61,7 +66,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="canonical" href="https://visualter.com" />
+        {/* Remove manual favicon links - metadata handles this */}
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"

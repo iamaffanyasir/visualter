@@ -29,8 +29,8 @@ export default function Home() {
           >
             <Image
               className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
+              src="/visualter.svg"
+              alt="Visualter Logo"
               width={20}
               height={20}
             />

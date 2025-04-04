@@ -52,9 +52,23 @@ export const metadata: Metadata = {
     canonical: 'https://visualter.com'
   },
   icons: {
-    icon: '/favicon.ico',
-    apple: '/apple-icon.png',
-    shortcut: '/favicon.ico',
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/android-chrome-512x512.png', sizes: '512x512', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/apple-icon.png', type: 'image/png' }
+    ],
+    other: [
+      {
+        rel: 'mask-icon',
+        url: '/icon.svg',
+      },
+    ],
   },
 };
 
@@ -66,7 +80,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Remove manual favicon links - metadata handles this */}
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"

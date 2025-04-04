@@ -129,16 +129,22 @@ export const TechStack = () => {
         
         <div className="tech-stack__slider-container">
           <div className="tech-stack__slider">
-            {/* First set of items */}
             {techStack.map((tech, index) => (
               <div key={`tech-1-${index}`} className="tech-stack__item">
                 <img src={tech.icon} alt={tech.name} className="tech-stack__icon" />
                 <span className="tech-stack__name">{tech.name}</span>
               </div>
             ))}
-            {/* Duplicate set for seamless loop */}
+            {/* Repeat items for seamless loop */}
             {techStack.map((tech, index) => (
               <div key={`tech-2-${index}`} className="tech-stack__item">
+                <img src={tech.icon} alt={tech.name} className="tech-stack__icon" />
+                <span className="tech-stack__name">{tech.name}</span>
+              </div>
+            ))}
+            {/* Add third set for wider screens */}
+            {techStack.map((tech, index) => (
+              <div key={`tech-3-${index}`} className="tech-stack__item">
                 <img src={tech.icon} alt={tech.name} className="tech-stack__icon" />
                 <span className="tech-stack__name">{tech.name}</span>
               </div>

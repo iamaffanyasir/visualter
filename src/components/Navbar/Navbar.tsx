@@ -53,6 +53,9 @@ export const Navbar = () => {
               <Link href="/clientele" className="navbar__link" onClick={closeMenu}>Clientele</Link>
             </li>
             <li className="navbar__item">
+              <Link href="/portfolio" className="navbar__link" onClick={closeMenu}>Portfolio</Link>
+            </li>
+            <li className="navbar__item">
               <Link href="/contact" className="navbar__link" onClick={closeMenu}>Contact Us</Link>
             </li>
           </ul>

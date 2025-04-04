@@ -369,4 +369,8 @@
     width: 20px;
     height: 20px;
   }
+
+  .header__scroll-indicator {
+    display: none;
+  }
 }

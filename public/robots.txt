@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://visualter.vercel.app/sitemap.xml
+Sitemap: https://visualter.com/sitemap.xml

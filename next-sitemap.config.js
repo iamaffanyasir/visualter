@@ -1,9 +1,10 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: 'https://visualter.vercel.app',
-  changefreq: 'daily',
+  siteUrl: 'https://visualter.com',
   generateRobotsTxt: true,
   generateIndexSitemap: true,
+  priority: 0.7,
+  changefreq: 'daily',
   exclude: ['/404', '/500'],
   robotsTxtOptions: {
     policies: [
@@ -11,18 +12,6 @@ module.exports = {
         userAgent: '*',
         allow: '/'
       }
-    ],
-    additionalSitemaps: [
-      'https://visualter.vercel.app/sitemap.xml',
-    ],
-  },
-  transform: async (config, path) => {
-    return {
-      loc: path,
-      changefreq: config.changefreq,
-      priority: path === '/' ? 1.0 : 0.8,
-      lastmod: new Date().toISOString(),
-      alternateRefs: [],
-    }
-  },
-}
+    ]
+  }
+};

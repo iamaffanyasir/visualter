@@ -8,7 +8,7 @@ import Link from "next/link";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://visualter.vercel.app'),
+  metadataBase: new URL('https://visualter.com'),
   title: {
     default: 'Visualter - Digital Solutions Provider',
     template: '%s | Visualter'
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     google: 'your-google-verification-code',
   },
   alternates: {
-    canonical: 'https://visualter.vercel.app'
+    canonical: 'https://visualter.com'
   }
 };
 
@@ -61,7 +61,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="canonical" href="https://visualter.vercel.app" />
+        <link rel="canonical" href="https://visualter.com" />
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"

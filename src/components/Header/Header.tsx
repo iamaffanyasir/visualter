@@ -10,7 +10,7 @@ const carouselData = [
     description: 'Creating intuitive and engaging user experiences through modern design principles and innovative interfaces',
     buttonText: 'View Projects',
     // secondaryButtonText: '',
-    image: '/images/carousel/website-dev.jpg',
+    image: '/images/carousel/website-dev.webp',
     stats: {
       main: '100+',
       sub: 'Projects Completed'
@@ -21,7 +21,7 @@ const carouselData = [
     description: 'Leveraging artificial intelligence and machine learning to build intelligent solutions for complex problems',
     buttonText: 'View Projects',
     // secondaryButtonText: 'Our Solutions',
-    image: '/images/carousel/ai-ml.jpg',
+    image: '/images/carousel/ai-ml.webp',
     stats: {
       main: '99.7%',
       sub: 'Accuracy Rate'
@@ -32,7 +32,7 @@ const carouselData = [
     description: 'Crafting beautiful and intuitive user interfaces that deliver exceptional user experiences',
     buttonText: 'View Projects',
     // secondaryButtonText: 'See Designs',
-    image: '/images/carousel/ui-ux.jpg',
+    image: '/images/carousel/ui-ux.webp',
     stats: {
       main: '30+',
       sub: 'Happy Clients'
@@ -43,7 +43,7 @@ const carouselData = [
     description: 'Optimizing digital presence and driving growth through data-driven insights and strategic marketing',
     buttonText: 'View Projects',
     // secondaryButtonText: 'Case Studies',
-    image: '/images/carousel/seo.jpg',
+    image: '/images/carousel/seo.webp',
     stats: {
       main: '89%',
       sub: 'Avg. Growth Rate'

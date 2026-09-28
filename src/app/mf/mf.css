@@ -1,0 +1,90 @@
+.mf {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7rem 1rem 4rem;
+  background:
+    radial-gradient(60% 45% at 50% 0%, rgba(155, 60, 255, 0.18), transparent),
+    radial-gradient(50% 40% at 100% 100%, rgba(59, 130, 246, 0.15), transparent),
+    #f7f7fb;
+}
+
+.mf__card {
+  width: 100%;
+  max-width: 380px;
+  background: #ffffff;
+  border-radius: 28px;
+  padding: 1.4rem;
+  text-align: center;
+  box-shadow: 0 24px 70px rgba(30, 20, 60, 0.15);
+}
+
+.mf__card--loading {
+  min-height: 520px;
+}
+
+.mf__cover {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 20px;
+  background: #ececf2;
+  display: block;
+}
+
+.mf__label {
+  margin-top: 1.1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9b3cff;
+}
+
+.mf__title {
+  margin-top: 0.35rem;
+  font-size: 1.45rem;
+  line-height: 1.25;
+  color: #111;
+}
+
+.mf__artist {
+  margin-top: 0.2rem;
+  color: #6b6b75;
+}
+
+.mf__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  margin-top: 0.75rem;
+  padding: 0.9rem;
+  border-radius: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.mf__btn:active {
+  transform: scale(0.97);
+}
+
+.mf__btn--primary {
+  margin-top: 1.4rem;
+  color: #fff;
+  background: linear-gradient(135deg, #6e8bff, #9b3cff);
+  box-shadow: 0 10px 24px rgba(155, 60, 255, 0.3);
+}
+
+.mf__btn--secondary {
+  color: #111;
+  background: #f0f0f5;
+}
+
+.mf__note {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  color: #8a8a93;
+}

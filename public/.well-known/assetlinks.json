@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.muse.flow",
+      "sha256_cert_fingerprints": [
+        "AD:9B:70:F6:0C:BC:D1:C5:BE:BC:77:AF:7D:01:AF:DE:90:43:8C:21:D6:E3:6B:D1:A3:58:33:00:A5:26:7F:17"
+      ]
+    }
+  }
+]

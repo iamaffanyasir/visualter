@@ -45,13 +45,13 @@ export function ActionButton({ product, small, autoOpen }: Props) {
   switch (a.type) {
     case 'download':
       return (
-        <a className={`btn btn--primary ${size}`} href={a.href} download>
+        <a className={`btn btn--primary ${size}`} href={`/api/download/${product.slug}`} download>
           Download
         </a>
       );
     case 'play':
       return (
-        <a className={`btn btn--primary ${size}`} href={a.href} target="_blank" rel="noopener noreferrer">
+        <a className={`btn btn--primary ${size}`} href={`/go/${product.slug}?t=play`} target="_blank" rel="noopener noreferrer">
           {small ? 'Get' : 'Get it on Google Play'}
         </a>
       );
@@ -69,7 +69,7 @@ export function ActionButton({ product, small, autoOpen }: Props) {
       );
     case 'subscribe':
       return (
-        <a className={`btn btn--primary ${size}`} href={a.href} target="_blank" rel="noopener noreferrer">
+        <a className={`btn btn--primary ${size}`} href={`/go/${product.slug}?t=subscribe`} target="_blank" rel="noopener noreferrer">
           Subscribe
         </a>
       );

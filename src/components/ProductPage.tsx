@@ -51,7 +51,7 @@ export function ProductPage({ category, slug }: { category: Category; slug: stri
                 </Link>
               ) : (
                 p.live && (
-                  <a className="link" href={p.live.href} target="_blank" rel="noopener noreferrer">
+                  <a className="link" href={`/go/${p.slug}?t=live`} target="_blank" rel="noopener noreferrer">
                     {p.live.label}
                   </a>
                 )

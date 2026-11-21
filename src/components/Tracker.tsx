@@ -28,5 +28,18 @@ export function Tracker() {
     else fetch('/api/track', { method: 'POST', body, keepalive: true, headers: { 'Content-Type': 'application/json' } });
   }, [pathname]);
 
+  // Add the anonymous device id to download and outbound links so they are counted per device too.
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      const a = (e.target as Element | null)?.closest?.('a');
+      const href = a?.getAttribute('href') ?? '';
+      if (!a || !/^\/(api\/download|go)\//.test(href) || href.includes('d=') || navigator.doNotTrack === '1') return;
+      const id = deviceId();
+      if (id) a.setAttribute('href', `${href}${href.includes('?') ? '&' : '?'}d=${id}`);
+    };
+    document.addEventListener('click', onClick, true);
+    return () => document.removeEventListener('click', onClick, true);
+  }, []);
+
   return null;
 }

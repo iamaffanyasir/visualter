@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { AppIcon } from '@/components/AppIcon';
 import { BarList, TrafficChart, type Day } from '@/components/admin/TrafficChart';
-import { formatPrice, getProduct } from '@/data/products';
+import { formatPrice, getProduct, work } from '@/data/products';
 import { requireAdmin } from '@/lib/admin';
 import { supabaseAdmin } from '@/lib/supabase/server';
 import { setEnquiryStatus, setOrderStatus } from './actions';
@@ -37,6 +37,34 @@ type Order = {
   paid_at: string | null;
 };
 type Ranked = { label: string; n: number }[];
+type EventRow = { product_slug: string; downloads: number; paid: number; free: number; android: number; windows: number; clicks: number; devices: number };
+type Events = {
+  downloads: number;
+  clicks: number;
+  devices: number;
+  daily: { day: string; downloads: number; clicks: number }[];
+  products: EventRow[];
+  recent: {
+    created_at: string;
+    kind: 'download' | 'click';
+    product_slug: string;
+    target: string | null;
+    paid: boolean;
+    user_id: string | null;
+    device: string | null;
+    country: string | null;
+  }[];
+};
+
+/** Name and icon for an event's product, including client websites logged as "work:slug". */
+function eventItem(slug: string) {
+  if (slug.startsWith('work:')) {
+    const w = work.find((x) => x.slug === slug.slice(5));
+    return { name: w ? `${w.name} website` : slug, logo: w?.logo };
+  }
+  const p = getProduct(slug);
+  return { name: p?.name ?? slug, logo: p?.logo };
+}
 type Traffic = {
   views: number;
   visitors: number;
@@ -57,15 +85,17 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
   const days = [7, 30, 90].includes(Number((await searchParams).days)) ? Number((await searchParams).days) : 30;
   const db = supabaseAdmin();
 
-  const [{ data: usersData }, { data: profiles }, { data: ordersData }, { data: trafficData, error: trafficError }, { data: enquiryData }] =
+  const [{ data: usersData }, { data: profiles }, { data: ordersData }, { data: trafficData, error: trafficError }, { data: enquiryData }, { data: eventsData }] =
     await Promise.all([
       db.auth.admin.listUsers({ page: 1, perPage: 1000 }),
       db.from('profiles').select('id, full_name, phone').range(0, 4999),
       db.from('orders').select('*').order('created_at', { ascending: false }).range(0, 4999),
       db.rpc('admin_traffic', { days }),
       db.from('enquiries').select('*').order('created_at', { ascending: false }).range(0, 199),
+      db.rpc('admin_events', { days }),
     ]);
   const enquiries = (enquiryData ?? []) as Enquiry[];
+  const events = (eventsData ?? null) as Events | null;
   const newEnquiries = enquiries.filter((e) => e.status === 'new');
 
   const users = usersData?.users ?? [];
@@ -222,6 +252,125 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
                   <BarList items={traffic.devices} />
                 </div>
               </div>
+            </>
+          )}
+        </section>
+
+        <section className="admin__card" id="downloads">
+          <div className="admin__card-head">
+            <h2>Downloads and clicks</h2>
+            <span className="muted small">Last {days} days</span>
+          </div>
+          {!events ? (
+            <p className="muted">Download data is not available yet.</p>
+          ) : (
+            <>
+              <div className="tiles-stats" style={{ marginBottom: 22 }}>
+                <div className="stat-tile stat-tile--flat">
+                  <div className="stat-tile__label">Downloads</div>
+                  <div className="stat-tile__value">{events.downloads}</div>
+                  <div className="stat-tile__sub">free and paid apps and software</div>
+                </div>
+                <div className="stat-tile stat-tile--flat">
+                  <div className="stat-tile__label">Devices that downloaded</div>
+                  <div className="stat-tile__value">{events.devices}</div>
+                  <div className="stat-tile__sub">each device counted once</div>
+                </div>
+                <div className="stat-tile stat-tile--flat">
+                  <div className="stat-tile__label">Outbound clicks</div>
+                  <div className="stat-tile__value">{events.clicks}</div>
+                  <div className="stat-tile__sub">Play Store, Subscribe and client sites</div>
+                </div>
+              </div>
+              <TrafficChart
+                data={events.daily.map((d) => ({ day: d.day, views: d.downloads, visitors: d.clicks }))}
+                labels={{ main: 'downloads', extra: 'outbound clicks', title: 'Downloads per day' }}
+              />
+              {events.products.length ? (
+                <div className="table-wrap mt-m">
+                  <table className="table">
+                    <thead>
+                      <tr>
+                        <th>Product</th>
+                        <th>Downloads</th>
+                        <th>Free</th>
+                        <th>Paid</th>
+                        <th>Android</th>
+                        <th>Windows</th>
+                        <th>Devices</th>
+                        <th>Clicks</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {events.products.map((r) => {
+                        const it = eventItem(r.product_slug);
+                        return (
+                          <tr key={r.product_slug}>
+                            <td>
+                              <span className="cell-product">
+                                {it.logo && <AppIcon src={it.logo} alt="" size={28} />}
+                                {it.name}
+                              </span>
+                            </td>
+                            <td>{r.downloads}</td>
+                            <td>{r.free}</td>
+                            <td>{r.paid}</td>
+                            <td>{r.android}</td>
+                            <td>{r.windows}</td>
+                            <td>{r.devices}</td>
+                            <td>{r.clicks}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              ) : (
+                <p className="muted mt-m">No downloads or clicks yet.</p>
+              )}
+              {events.recent.length > 0 && (
+                <>
+                  <h3 className="mt-l">Recent activity</h3>
+                  <div className="table-wrap">
+                    <table className="table">
+                      <thead>
+                        <tr>
+                          <th>When</th>
+                          <th>What</th>
+                          <th>Item</th>
+                          <th>Who</th>
+                          <th>Device</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {events.recent.map((r, i) => {
+                          const it = eventItem(r.product_slug);
+                          const who = r.user_id ? profileOf.get(r.user_id)?.full_name || 'Signed in customer' : 'Guest';
+                          return (
+                            <tr key={i}>
+                              <td className="muted small">{time(r.created_at)}</td>
+                              <td>
+                                <span className={`badge ${r.kind === 'download' ? (r.paid ? 'badge--paid' : 'badge--pending') : ''}`}>
+                                  {r.kind === 'download' ? (r.paid ? 'Paid download' : 'Free download') : 'Click'}
+                                </span>
+                              </td>
+                              <td>
+                                <div>{it.name}</div>
+                                <div className="muted small">{r.target}</div>
+                              </td>
+                              <td className="small">{who}</td>
+                              <td className="muted small">
+                                {r.device ?? ''}
+                                {r.country ? ` · ${regions.of(r.country) ?? r.country}` : ''}
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </>
+              )}
             </>
           )}
         </section>

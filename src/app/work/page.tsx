@@ -34,7 +34,7 @@ function WorkCard({ w, i }: { w: Work; i: number }) {
           ))}
         </div>
         {w.url ? (
-          <a className="link stretched" href={w.url} target="_blank" rel="noopener noreferrer">
+          <a className="link stretched" href={`/go/${w.slug}?t=work`} target="_blank" rel="noopener noreferrer">
             Visit {w.urlLabel}
           </a>
         ) : (

@@ -13,7 +13,7 @@ export function marqueeRows(): MarqueeItem[][] {
     logoDark: p.logoDark,
     shots: p.shots,
     href: productHref(p),
-    visit: p.live?.href ?? (p.action.type === 'play' ? p.action.href : undefined),
+    visit: p.live ? `/go/${p.slug}?t=live` : p.action.type === 'play' ? `/go/${p.slug}?t=play` : undefined,
     visitLabel: p.live ? 'site' : p.action.type === 'play' ? 'Google Play' : undefined,
   }));
 
@@ -27,8 +27,8 @@ export function marqueeRows(): MarqueeItem[][] {
       logo: w.logo ?? '/logos/cmanager.webp',
       logoDark: w.logoDark,
       shots: w.shots,
-      href: w.url ?? '/work',
-      visit: w.url,
+      href: w.url ? `/go/${w.slug}?t=work` : '/work',
+      visit: w.url ? `/go/${w.slug}?t=work` : undefined,
       visitLabel: 'site',
     }));
 

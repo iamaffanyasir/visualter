@@ -11,7 +11,10 @@ const PAD = { top: 12, right: 8, bottom: 26, left: 36 };
 const fmtDay = (d: string) => new Date(d + 'T00:00:00').toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
 
 /** Daily page views as thin bars, with a hover tooltip and a table fallback. */
-export function TrafficChart({ data }: { data: Day[] }) {
+type Labels = { main: string; extra: string; title: string };
+const DEFAULT_LABELS: Labels = { main: 'page views', extra: 'unique devices', title: 'Page views per day' };
+
+export function TrafficChart({ data, labels = DEFAULT_LABELS }: { data: Day[]; labels?: Labels }) {
   const [hover, setHover] = useState<number | null>(null);
   const max = Math.max(4, ...data.map((d) => d.views));
   const step = Math.pow(10, Math.floor(Math.log10(max)));
@@ -28,7 +31,7 @@ export function TrafficChart({ data }: { data: Day[] }) {
   return (
     <div className="chart">
       <div className="chart__plot" onMouseLeave={() => setHover(null)}>
-        <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`Page views per day for the last ${data.length} days`}>
+        <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`${labels.title} for the last ${data.length} days`}>
           {ticks.map((t) => (
             <g key={t}>
               <line x1={PAD.left} x2={W - PAD.right} y1={y(t)} y2={y(t)} className="chart__grid" />
@@ -64,7 +67,7 @@ export function TrafficChart({ data }: { data: Day[] }) {
                   onMouseEnter={() => setHover(i)}
                   onFocus={() => setHover(i)}
                   tabIndex={0}
-                  aria-label={`${fmtDay(d.day)}: ${d.views} views, ${d.visitors} unique devices`}
+                  aria-label={`${fmtDay(d.day)}: ${d.views} ${labels.main}, ${d.visitors} ${labels.extra}`}
                 />
               </g>
             );
@@ -74,8 +77,12 @@ export function TrafficChart({ data }: { data: Day[] }) {
         {h && hover !== null && (
           <div className="chart__tip" style={{ left: `${((PAD.left + hover * slot + slot / 2) / W) * 100}%` }}>
             <strong>{fmtDay(h.day)}</strong>
-            <span>{h.views} page views</span>
-            <span>{h.visitors} unique devices</span>
+            <span>
+              {h.views} {labels.main}
+            </span>
+            <span>
+              {h.visitors} {labels.extra}
+            </span>
           </div>
         )}
       </div>
@@ -85,8 +92,8 @@ export function TrafficChart({ data }: { data: Day[] }) {
           <thead>
             <tr>
               <th>Day</th>
-              <th>Page views</th>
-              <th>Unique devices</th>
+              <th style={{ textTransform: 'capitalize' }}>{labels.main}</th>
+              <th style={{ textTransform: 'capitalize' }}>{labels.extra}</th>
             </tr>
           </thead>
           <tbody>

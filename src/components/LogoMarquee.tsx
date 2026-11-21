@@ -24,6 +24,9 @@ export type MarqueeItem = {
 
 type Active = { item: MarqueeItem; rect: DOMRect };
 
+/** Outside sites, including the /go click counter that forwards to them. */
+const isExternal = (href: string) => href.startsWith('http') || href.startsWith('/go/');
+
 const PEEK_W = 420;
 const PEEK_H = 400;
 
@@ -65,7 +68,7 @@ export function LogoMarquee({ rows }: { rows: MarqueeItem[][] }) {
   };
 
   const go = (item: MarqueeItem) => {
-    if (item.href.startsWith('http')) window.open(item.href, '_blank', 'noopener,noreferrer');
+    if (isExternal(item.href)) window.open(item.href, '_blank', 'noopener,noreferrer');
     else router.push(item.href);
   };
 
@@ -115,7 +118,7 @@ function Peek({ active, onEnter, onLeave, onClose }: { active: Active; onEnter: 
   const cx = rect.left + rect.width / 2;
   const left = Math.max(16, Math.min(cx - w / 2, vw - w - 16));
   const above = rect.top > PEEK_H + 24;
-  const internal = !item.href.startsWith('http');
+  const internal = !isExternal(item.href);
   const owned = useOwned();
 
   return createPortal(

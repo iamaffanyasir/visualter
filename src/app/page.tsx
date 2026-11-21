@@ -140,7 +140,7 @@ export default function Home() {
                     <h3 className="card__name">{w.name}</h3>
                   </div>
                   <p className="card__text">{w.summary}</p>
-                  <a className="link mt-s stretched" href={w.url} target="_blank" rel="noopener noreferrer">
+                  <a className="link mt-s stretched" href={`/go/${w.slug}?t=work`} target="_blank" rel="noopener noreferrer">
                     {w.urlLabel}
                   </a>
                 </div>

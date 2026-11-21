@@ -2613,3 +2613,8 @@ main {
     display: table-cell;
   }
 }
+
+.stat-tile--flat {
+  box-shadow: none;
+  background: var(--bg-alt);
+}

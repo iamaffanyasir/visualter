@@ -40,7 +40,7 @@ export default function DownloadsPage() {
                 <a
                   className="dl-tile"
                   style={{ ['--accent' as string]: p.accent }}
-                  href={p.action.type === 'download' ? p.action.href : p.action.type === 'play' ? p.action.href : '#'}
+                  href={p.action.type === 'download' ? `/api/download/${p.slug}` : `/go/${p.slug}?t=play`}
                   {...(p.action.type === 'download' ? { download: true } : { target: '_blank', rel: 'noopener noreferrer' })}
                 >
                   <AppIcon src={p.logo} alt="" dark={p.logoDark} />
@@ -107,7 +107,7 @@ export default function DownloadsPage() {
                 </div>
                 <div className="dl-row__actions">
                   {w.url ? (
-                    <a className="btn btn--ghost btn--sm" href={w.url} target="_blank" rel="noopener noreferrer">
+                    <a className="btn btn--ghost btn--sm" href={`/go/${w.slug}?t=work`} target="_blank" rel="noopener noreferrer">
                       Visit
                     </a>
                   ) : (

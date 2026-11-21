@@ -177,7 +177,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
             <tr>
               <th>Product</th>
               <th>Customer</th>
-              <th>Amount</th>
+              <th className="num">Amount</th>
               <th>Status</th>
               <th>Placed</th>
               <th>Payment</th>
@@ -201,16 +201,16 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
                       {o.buyer_email} · {o.buyer_phone}
                     </div>
                   </td>
-                  <td>{formatPrice(o.amount_inr)}</td>
+                  <td className="num">{formatPrice(o.amount_inr)}</td>
                   <td>
                     <span className={`badge badge--${o.status}`}>{o.status}</span>
                   </td>
-                  <td className="muted small">{time(o.created_at)}</td>
+                  <td className="muted small nowrap">{time(o.created_at)}</td>
                   <td className="muted small">
                     {o.payment_provider ?? ''}
                     {o.payment_ref ? <div>{o.payment_ref}</div> : null}
                   </td>
-                  <td>
+                  <td className="cell-actions">
                     {o.status === 'paid' && (
                       <div className="row-actions">
                         <Link className="btn btn--ghost btn--sm" href={`/invoice/${o.id}`}>
@@ -361,7 +361,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
             <h1 className="title">{LABELS[view]}</h1>
           </div>
           {showRange && (
-            <div className="chips" style={{ margin: 0 }}>
+            <div className="chips">
               {[7, 30, 90].map((d) => (
                 <Link key={d} href={href(view, d)} className={`chip ${d === days ? 'chip--on' : ''}`}>
                   {d} days
@@ -401,26 +401,24 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
               </section>
             </div>
 
-            <div className="admin-grid2">
-              <section className="admin__card">
-                <div className="admin__card-head">
-                  <h2>Latest orders</h2>
-                  <Link className="link small" href={href('orders')}>
-                    All orders
-                  </Link>
-                </div>
-                <OrdersTable rows={orderRows.slice(0, 5)} />
-              </section>
-              <section className="admin__card">
-                <div className="admin__card-head">
-                  <h2>New enquiries</h2>
-                  <Link className="link small" href={href('enquiries')}>
-                    Inbox
-                  </Link>
-                </div>
-                <EnquiryList rows={newEnquiries.slice(0, 3)} />
-              </section>
-            </div>
+            <section className="admin__card">
+              <div className="admin__card-head">
+                <h2>Latest orders</h2>
+                <Link className="link small" href={href('orders')}>
+                  All orders
+                </Link>
+              </div>
+              <OrdersTable rows={orderRows.slice(0, 5)} />
+            </section>
+            <section className="admin__card">
+              <div className="admin__card-head">
+                <h2>New enquiries</h2>
+                <Link className="link small" href={href('enquiries')}>
+                  Inbox
+                </Link>
+              </div>
+              <EnquiryList rows={newEnquiries.slice(0, 3)} />
+            </section>
           </>
         )}
 
@@ -497,13 +495,13 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
                     <thead>
                       <tr>
                         <th>Product</th>
-                        <th>Downloads</th>
-                        <th>Free</th>
-                        <th>Paid</th>
-                        <th>Android</th>
-                        <th>Windows</th>
-                        <th>Devices</th>
-                        <th>Clicks</th>
+                        <th className="num">Downloads</th>
+                        <th className="num">Free</th>
+                        <th className="num">Paid</th>
+                        <th className="num">Android</th>
+                        <th className="num">Windows</th>
+                        <th className="num">Devices</th>
+                        <th className="num">Clicks</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -517,13 +515,13 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
                                 {it.name}
                               </span>
                             </td>
-                            <td>{r.downloads}</td>
-                            <td>{r.free}</td>
-                            <td>{r.paid}</td>
-                            <td>{r.android}</td>
-                            <td>{r.windows}</td>
-                            <td>{r.devices}</td>
-                            <td>{r.clicks}</td>
+                            <td className="num">{r.downloads}</td>
+                            <td className="num">{r.free}</td>
+                            <td className="num">{r.paid}</td>
+                            <td className="num">{r.android}</td>
+                            <td className="num">{r.windows}</td>
+                            <td className="num">{r.devices}</td>
+                            <td className="num">{r.clicks}</td>
                           </tr>
                         );
                       })}
@@ -554,7 +552,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
                         const who = r.user_id ? profileOf.get(r.user_id)?.full_name || 'Signed in customer' : 'Guest';
                         return (
                           <tr key={i}>
-                            <td className="muted small">{time(r.created_at)}</td>
+                            <td className="muted small nowrap">{time(r.created_at)}</td>
                             <td>
                               <span className={`badge ${r.kind === 'download' ? (r.paid ? 'badge--paid' : 'badge--pending') : ''}`}>
                                 {r.kind === 'download' ? (r.paid ? 'Paid download' : 'Free download') : 'Click'}
@@ -621,7 +619,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
                       <th>Phone</th>
                       <th>Joined</th>
                       <th>Last sign in</th>
-                      <th>Bought</th>
+                      <th className="num">Bought</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -638,10 +636,10 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
                                 {!u.email_confirmed_at && ' · not confirmed'}
                               </div>
                             </td>
-                            <td className="small">{p?.phone ?? ''}</td>
-                            <td className="muted small">{date(u.created_at)}</td>
-                            <td className="muted small">{date(u.last_sign_in_at)}</td>
-                            <td>{boughtBy.get(u.id) ?? 0}</td>
+                            <td className="small nowrap">{p?.phone ?? ''}</td>
+                            <td className="muted small nowrap">{date(u.created_at)}</td>
+                            <td className="muted small nowrap">{date(u.last_sign_in_at)}</td>
+                            <td className="num">{boughtBy.get(u.id) ?? 0}</td>
                           </tr>
                         );
                       })}
@@ -669,9 +667,9 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
                     <thead>
                       <tr>
                         <th>Product</th>
-                        <th>Sold</th>
-                        <th>Pending</th>
-                        <th>Revenue</th>
+                        <th className="num">Sold</th>
+                        <th className="num">Pending</th>
+                        <th className="num">Revenue</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -685,9 +683,9 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
                                 {p?.name ?? slug}
                               </span>
                             </td>
-                            <td>{s.count}</td>
-                            <td>{s.pending}</td>
-                            <td>{formatPrice(s.revenue)}</td>
+                            <td className="num">{s.count}</td>
+                            <td className="num">{s.pending}</td>
+                            <td className="num">{formatPrice(s.revenue)}</td>
                           </tr>
                         );
                       })}

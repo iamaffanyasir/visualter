@@ -172,7 +172,7 @@ export default async function InvoicePage({ params }: { params: Promise<{ id: st
         <footer className="invoice__foot">
           <p>
             Thank you for your purchase. Download {product?.name ?? 'your product'} again any time from your account at
-            visualter.com/account.
+            visualter.in/account.
           </p>
           <p className="invoice__muted">
             Questions about this invoice: {d.email} · {d.phone}. This is a computer generated invoice and needs no signature.

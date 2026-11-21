@@ -41,7 +41,9 @@ export function AuthForm({ mode }: { mode: Mode }) {
       router.refresh();
       return;
     }
-    const site = process.env.NEXT_PUBLIC_SITE_URL || window.location.origin;
+    // Send the confirmation link back to the site the visitor is actually on. A build time
+    // NEXT_PUBLIC_SITE_URL of http://localhost:3000 used to leak into production emails.
+    const site = window.location.origin;
     const { data, error } = await supabase.auth.signUp({
       email: form.email,
       password: form.password,

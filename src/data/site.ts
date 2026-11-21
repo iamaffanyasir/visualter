@@ -1,6 +1,6 @@
 export const site = {
   name: 'Visualter',
-  url: 'https://visualter.com',
+  url: 'https://visualter.in',
   tagline: 'Software, crafted with care.',
   description:
     'Visualter is the studio of developer Mohammad Affan Yasir. Android apps, desktop software, hardware and websites, designed and built by hand in New Delhi.',

@@ -3,7 +3,7 @@ import { site } from '@/data/site';
 
 export const metadata: Metadata = {
   title: 'Terms of Use',
-  description: 'The terms that apply to visualter.com and to Visualter apps and software.',
+  description: 'The terms that apply to visualter.in and to Visualter apps and software.',
 };
 
 export default function TermsPage() {
@@ -19,7 +19,7 @@ export default function TermsPage() {
       <article className="prose">
         <h2>Using this website</h2>
         <p>
-          By using visualter.com you agree to these terms. The content, screenshots, logos and code shown here belong to
+          By using visualter.in you agree to these terms. The content, screenshots, logos and code shown here belong to
           Visualter or to the clients whose work is featured, and may not be copied or reused without permission.
         </p>
 

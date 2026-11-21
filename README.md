@@ -32,8 +32,8 @@ Without Supabase values the site still works: Buy buttons fall back to ordering 
    The service role key is secret: never commit it and never prefix it with `NEXT_PUBLIC_`.
 2. **Database.** Open SQL Editor, paste `supabase/migrations/0001_accounts_and_orders.sql` and run it.
    It creates `profiles`, `orders` (with row level security) and a private `apps` storage bucket.
-3. **Auth URLs.** Authentication > URL Configuration: set Site URL to `https://visualter.com` and add
-   `http://localhost:3000/**` and `https://visualter.com/**` to Redirect URLs.
+3. **Auth URLs.** Authentication > URL Configuration: set Site URL to `https://visualter.in` and add
+   `http://localhost:3000/**` and `https://visualter.in/**` to Redirect URLs.
 4. **App files (free, GitHub Releases).**
    - Create a **private** repo on GitHub, for example `visualter-apps`, and tick "Add a README" so it has a first commit.
    - GitHub > Settings > Developer settings > Fine grained tokens > Generate: Repository access "Only select

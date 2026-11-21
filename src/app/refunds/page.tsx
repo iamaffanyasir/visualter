@@ -26,7 +26,7 @@ export default function RefundsPage() {
         <h2>Delivery</h2>
         <p>
           Digital products are delivered instantly. As soon as your payment is confirmed, the product appears in your account at
-          visualter.com/account, ready to download. You can download it again at any time from any device by signing in. Nothing
+          visualter.in/account, ready to download. You can download it again at any time from any device by signing in. Nothing
           is shipped physically for digital products.
         </p>
         <p>

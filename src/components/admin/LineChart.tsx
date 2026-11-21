@@ -127,7 +127,14 @@ export function LineChart({
           <rect x={PAD.left} y={PAD.top} width={iw} height={ih} fill="transparent" onPointerMove={onMove} onPointerDown={onMove} />
         </svg>
         {h && hover !== null && (
-          <div className="chart__tip" style={{ left: `${(x(hover) / W) * 100}%` }}>
+          <div
+            className="chart__tip"
+            style={{
+              left: `${(x(hover) / W) * 100}%`,
+              // Keep the tooltip inside the card near the left and right edges.
+              transform: `translate(${x(hover) / W < 0.2 ? '0' : x(hover) / W > 0.8 ? '-100%' : '-50%'}, -6px)`,
+            }}
+          >
             <strong>{fmtDay(h.day)}</strong>
             {series.map((s) => (
               <span key={s.key} className="chart__tip-row">

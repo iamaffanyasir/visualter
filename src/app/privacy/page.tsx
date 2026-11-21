@@ -3,7 +3,7 @@ import { site } from '@/data/site';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
-  description: 'How Visualter, visualter.com and our apps collect, use and protect your information.',
+  description: 'How Visualter, visualter.in and our apps collect, use and protect your information.',
 };
 
 const toc = [
@@ -70,7 +70,7 @@ export default function PrivacyPolicyPage() {
           <section id="collect" className="policy__card">
             <h2>What we collect</h2>
             <p>
-              This policy covers visualter.com and the store, accounts and downloads on it, run by {d.name} as Visualter,
+              This policy covers visualter.in and the store, accounts and downloads on it, run by {d.name} as Visualter,
               {` ${d.location}`}. We collect only what we need to run the site and deliver what you buy.
             </p>
             <h3>Your account</h3>

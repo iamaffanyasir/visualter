@@ -1,1 +1,0 @@
-export { Clientele } from './Clientele';

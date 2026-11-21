@@ -1,8 +1,0 @@
-User-agent: *
-Allow: /
-
-# Primary domain declaration
-Host: https://visualter.com
-
-# Sitemap declaration
-Sitemap: https://visualter.com/sitemap.xml

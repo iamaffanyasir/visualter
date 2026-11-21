@@ -1,89 +1,60 @@
-'use client';
+import type { Metadata } from 'next';
+import { site } from '@/data/site';
 
-import './terms.css';
+export const metadata: Metadata = {
+  title: 'Terms of Use',
+  description: 'The terms that apply to visualter.com and to Visualter apps and software.',
+};
 
 export default function TermsPage() {
+  const d = site.developer;
   return (
-    <div className="terms">
-      <section className="terms__hero">
-        <div className="terms__hero-content">
-          <h1 className="terms__hero-title">Terms of Service</h1>
-          <p className="terms__hero-description">
-            Last updated: January 2024
-          </p>
+    <>
+      <section className="page-hero">
+        <div className="container">
+          <h1 className="headline">Terms of Use</h1>
+          <p className="lede">Last updated 21 November 2026</p>
         </div>
       </section>
+      <article className="prose">
+        <h2>Using this website</h2>
+        <p>
+          By using visualter.com you agree to these terms. The content, screenshots, logos and code shown here belong to
+          Visualter or to the clients whose work is featured, and may not be copied or reused without permission.
+        </p>
 
-      <div className="terms__container">
-        <div className="terms__content">
-          <section className="terms__section">
-            <h2>1. Acceptance of Terms</h2>
-            <p>
-              By accessing and using Visualter's services, you accept and agree to be bound by the terms
-              and provision of this agreement.
-            </p>
-          </section>
+        <h2>Apps and software</h2>
+        <p>
+          When you download or buy a Visualter app or program, you receive a personal licence to install and use it on your own
+          devices. You may not resell, redistribute, decompile or modify it, or remove any notices from it.
+        </p>
 
-          <section className="terms__section">
-            <h2>2. Use License</h2>
-            <p>
-              Permission is granted to temporarily access our services for personal,
-              non-commercial transitory viewing only.
-            </p>
-            <p>This license shall automatically terminate if you violate any of these restrictions:</p>
-            <ul>
-              <li>Modify or copy the materials</li>
-              <li>Use the materials for any commercial purpose</li>
-              <li>Attempt to decompile or reverse engineer any software</li>
-              <li>Remove any copyright or proprietary notations</li>
-              <li>Transfer the materials to another person</li>
-            </ul>
-          </section>
+        <h2>Purchases and refunds</h2>
+        <p>
+          Prices are shown in Indian Rupees and include any applicable taxes unless stated otherwise. If a product does not work
+          as described on its page, contact us and we will work with you to put it right.
+        </p>
 
-          <section className="terms__section">
-            <h2>3. Disclaimer</h2>
-            <p>
-              The materials on Visualter's services are provided on an 'as is' basis.
-              Visualter makes no warranties, expressed or implied, and hereby disclaims
-              and negates all other warranties including, without limitation:
-            </p>
-            <ul>
-              <li>Implied warranties of merchantability</li>
-              <li>Fitness for a particular purpose</li>
-              <li>Non-infringement of intellectual property</li>
-            </ul>
-          </section>
+        <h2>Client websites</h2>
+        <p>
+          Websites listed under Work are built for and owned by their respective clients. Their own terms and policies apply when
+          you use them.
+        </p>
 
-          <section className="terms__section">
-            <h2>4. Limitations</h2>
-            <p>
-              In no event shall Visualter be liable for any damages arising out of the use
-              or inability to use our services, even if we have been notified of the
-              possibility of such damages.
-            </p>
-          </section>
+        <h2>No warranty</h2>
+        <p>
+          Our products are provided as they are. We work hard to keep them reliable, but we cannot promise they will be free of
+          errors, and we are not liable for indirect losses arising from their use.
+        </p>
 
-          <section className="terms__section">
-            <h2>5. Service Updates</h2>
-            <p>
-              Visualter may revise these terms of service at any time without notice.
-              By using our services, you are agreeing to be bound by the current version
-              of these terms of service.
-            </p>
-          </section>
+        <h2>Changes</h2>
+        <p>We may update these terms from time to time. The date at the top of this page shows the latest version.</p>
 
-          <section className="terms__section">
-            <h2>6. Contact Information</h2>
-            <p>
-              If you have any questions about these Terms of Service, please contact us:
-              <br />
-              Email: visualter4dev@gmail.com
-              <br />
-              Phone: +91 - 7011188053
-            </p>
-          </section>
-        </div>
-      </div>
-    </div>
+        <h2>Contact</h2>
+        <p>
+          <a href={`mailto:${d.email}`}>{d.email}</a> · <a href={d.phoneHref}>{d.phone}</a>
+        </p>
+      </article>
+    </>
   );
 }

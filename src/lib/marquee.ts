@@ -1,0 +1,34 @@
+import type { MarqueeItem } from '@/components/LogoMarquee';
+import { actionLabel, productHref, products, work, workKinds } from '@/data/products';
+
+export function marqueeRows(): MarqueeItem[][] {
+  const productRow: MarqueeItem[] = products.map((p) => ({
+    key: `p-${p.slug}`,
+    name: p.name,
+    meta: `${p.platform} · ${actionLabel(p.action)}`,
+    text: p.summary,
+    logo: p.logo,
+    logoDark: p.logoDark,
+    shots: p.shots,
+    href: productHref(p),
+    visit: p.live?.href ?? (p.action.type === 'play' ? p.action.href : undefined),
+    visitLabel: p.live ? 'site' : p.action.type === 'play' ? 'Google Play' : undefined,
+  }));
+
+  const workRow: MarqueeItem[] = work
+    .filter((w) => w.slug !== 'labos')
+    .map((w) => ({
+      key: `w-${w.slug}`,
+      name: w.name,
+      meta: `${workKinds[w.kind].replace(/s$/, '')} · ${w.urlLabel ?? 'Not yet live'}`,
+      text: w.summary,
+      logo: w.logo ?? '/logos/cmanager.webp',
+      logoDark: w.logoDark,
+      shots: w.shots,
+      href: w.url ?? '/work',
+      visit: w.url,
+      visitLabel: 'site',
+    }));
+
+  return [productRow, workRow];
+}

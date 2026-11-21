@@ -1,80 +1,48 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import { Navbar } from "../components/Navbar";
-import { Footer } from "../components/Footer/Footer";
-import Link from "next/link";
-import { WhatsappButton } from "@/components/WhatsappButton/WhatsappButton";
+import type { Metadata, Viewport } from 'next';
+import { Inter } from 'next/font/google';
+import './globals.css';
+import { Nav } from '@/components/Nav';
+import { Footer } from '@/components/Footer';
+import { site } from '@/data/site';
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://visualter.com'),
+  metadataBase: new URL(site.url),
   title: {
-    default: 'Visualter - Digital Solutions Provider',
-    template: '%s | Visualter'
+    default: 'Visualter · Apps, Software and Hardware by Mohammad Affan Yasir',
+    template: '%s · Visualter',
   },
-  description: 'Transforming ideas into exceptional digital experiences. We craft innovative solutions for web, mobile, and software development.',
-  keywords: ['web development', 'software development', 'mobile apps', 'UI/UX design', 'digital solutions'],
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-    },
-  },
+  description: site.description,
+  applicationName: 'Visualter',
+  authors: [{ name: site.developer.name, url: site.developer.github }],
+  creator: site.developer.name,
+  keywords: ['Visualter', 'Mohammad Affan Yasir', 'Android apps', 'Windows software', 'LabOS', 'Muse Flow', 'OrbitX', 'Taqwa', 'web development'],
+  alternates: { canonical: './' },
   openGraph: {
     type: 'website',
-    locale: 'en_US',
-    url: 'https://visualter.com',
+    locale: 'en_IN',
     siteName: 'Visualter',
-    title: 'Visualter - Digital Solutions Provider',
-    description: 'Transforming ideas into exceptional digital experiences',
-    images: [
-      {
-        url: '/images/og-image.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Visualter'
-      }
-    ]
+    url: site.url,
+    title: 'Visualter',
+    description: site.description,
+    images: [{ url: '/brand/logo-light.png', alt: 'Visualter' }],
   },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Visualter - Digital Solutions Provider',
-    description: 'Transforming ideas into exceptional digital experiences',
-    images: ['/images/og-image.jpg'],
-  },
-  verification: {
-    google: 'your-google-verification-code',
-  },
-  alternates: {
-    canonical: 'https://visualter.com'
-  },
-  icons: {
-    icon: 'favicon.ico'
-  },
+  twitter: { card: 'summary_large_image', title: 'Visualter', description: site.description, images: ['/brand/logo-light.png'] },
+  manifest: '/site.webmanifest',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export const viewport: Viewport = {
+  themeColor: '#fbfbfd',
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <head>
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-        />
-      </head>
-      <body className={inter.className}>
-        <Navbar />
+    <html lang="en" className={inter.variable}>
+      <body>
+        <Nav />
         <main>{children}</main>
         <Footer />
-        <WhatsappButton />
       </body>
     </html>
   );

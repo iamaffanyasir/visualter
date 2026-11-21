@@ -23,7 +23,7 @@ function SharedSong() {
           `S.browser_fallback_url=${encodeURIComponent(ytMusic)};end`,
       );
     }
-    document.title = `${title}${artist ? ` — ${artist}` : ''} · Muse Flow`;
+    document.title = `${title}${artist ? ` by ${artist}` : ''} · Muse Flow`;
   }, [videoId, title, artist, ytMusic]);
 
   if (!videoId) {
@@ -42,10 +42,16 @@ function SharedSong() {
       <h1 className="mf__title">{title}</h1>
       {artist && <p className="mf__artist">{artist}</p>}
       <a className="mf__btn mf__btn--primary" href={openHref}>
-        <i className="fa-solid fa-play" /> Open in Muse Flow
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+          <path d="M7 4.5v15a1 1 0 0 0 1.5.86l12-7.5a1 1 0 0 0 0-1.72l-12-7.5A1 1 0 0 0 7 4.5Z" />
+        </svg>{' '}
+        Open in Muse Flow
       </a>
       <a className="mf__btn mf__btn--secondary" href={ytMusic} target="_blank" rel="noopener noreferrer">
-        <i className="fa-brands fa-youtube" /> Listen on YouTube Music
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+          <path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12 31 31 0 0 0 1 16.8a3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8ZM9.8 15.1V8.9l5.4 3.1-5.4 3.1Z" />
+        </svg>{' '}
+        Listen on YouTube Music
       </a>
       <p className="mf__note">Have Muse Flow installed? Links like this open straight in the app.</p>
     </div>

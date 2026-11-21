@@ -101,7 +101,7 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
     { label: 'Paid orders', value: paid.length, sub: `${pending.length} waiting for payment` },
     { label: 'Customers', value: users.length, sub: `${newUsers30} joined in the last 30 days` },
     { label: 'New enquiries', value: newEnquiries.length, sub: `${enquiries.length} received in total` },
-    { label: `Visitors, ${days} days`, value: traffic?.visitors ?? 0, sub: `${traffic?.today_visitors ?? 0} today` },
+    { label: `Unique devices, ${days} days`, value: traffic?.visitors ?? 0, sub: `${traffic?.today_visitors ?? 0} today` },
     { label: `Page views, ${days} days`, value: traffic?.views ?? 0, sub: `${traffic?.today_views ?? 0} today` },
   ];
 
@@ -272,6 +272,16 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
                           {o.payment_ref ? <div>{o.payment_ref}</div> : null}
                         </td>
                         <td>
+                          {o.status === 'paid' && (
+                            <div className="row-actions">
+                              <Link className="btn btn--ghost btn--sm" href={`/invoice/${o.id}`}>
+                                Invoice
+                              </Link>
+                              <a className="btn btn--sm" style={{ background: 'var(--bg-alt)' }} href={`/invoice/${o.id}?download=1`} target="_blank" rel="noopener">
+                                Download
+                              </a>
+                            </div>
+                          )}
                           {o.status === 'pending' && (
                             <div className="row-actions">
                               <form action={setOrderStatus}>

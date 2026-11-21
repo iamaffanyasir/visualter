@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 import { AppIcon } from '@/components/AppIcon';
 import { PayButton } from '@/components/PayButton';
 import { isAdminEmail } from '@/lib/admin';
+import { invoiceNumber } from '@/lib/invoice';
 import { ProfileForm } from '@/components/ProfileForm';
 import { formatPrice, getProduct, productFiles, productHref, products } from '@/data/products';
 import { site } from '@/data/site';
@@ -13,7 +14,7 @@ import { currentUser } from '@/lib/supabase/server';
 export const metadata: Metadata = { title: 'Your account', robots: { index: false } };
 export const dynamic = 'force-dynamic';
 
-type Order = { id: string; product_slug: string; amount_inr: number; status: string; created_at: string };
+type Order = { id: string; product_slug: string; amount_inr: number; status: string; created_at: string; paid_at: string | null };
 
 export default async function AccountPage() {
   if (!supabaseEnabled) redirect('/login');
@@ -22,13 +23,14 @@ export default async function AccountPage() {
 
   const [{ data: profile }, { data: orders }] = await Promise.all([
     supabase.from('profiles').select('full_name, phone').eq('id', user.id).maybeSingle(),
-    supabase.from('orders').select('id, product_slug, amount_inr, status, created_at').order('created_at', { ascending: false }),
+    supabase.from('orders').select('id, product_slug, amount_inr, status, created_at, paid_at').order('created_at', { ascending: false }),
   ]);
 
   const list = (orders ?? []) as Order[];
   const ownedSlugs = [...new Set(list.filter((o) => o.status === 'paid').map((o) => o.product_slug))];
   const owned = ownedSlugs.map((s) => getProduct(s)).filter((p) => !!p);
   const pending = list.filter((o) => o.status === 'pending');
+  const paidOrders = list.filter((o) => o.status === 'paid');
   const free = products.filter((p) => p.action.type === 'download');
   const first = (profile?.full_name ?? '').split(' ')[0];
 
@@ -110,6 +112,39 @@ export default async function AccountPage() {
               })}
             </div>
             <p className="muted small mt-s">Your download unlocks here the moment the payment is confirmed.</p>
+          </div>
+        </section>
+      )}
+
+      {paidOrders.length > 0 && (
+        <section className="section--tight">
+          <div className="container">
+            <h2 className="title mb-l">Receipts</h2>
+            <div className="dl-list">
+              {paidOrders.map((o) => {
+                const p = getProduct(o.product_slug);
+                return (
+                  <div key={o.id} className="dl-row">
+                    {p ? <AppIcon src={p.logo} alt="" /> : <span />}
+                    <div>
+                      <div className="dl-row__name">{p?.name ?? o.product_slug}</div>
+                      <div className="dl-row__meta">
+                        Invoice {invoiceNumber(o)} · {formatPrice(o.amount_inr)} ·{' '}
+                        {new Date(o.paid_at ?? o.created_at).toLocaleDateString('en-IN')}
+                      </div>
+                    </div>
+                    <div className="dl-row__actions">
+                      <Link className="btn btn--ghost btn--sm" href={`/invoice/${o.id}`}>
+                        View
+                      </Link>
+                      <a className="btn btn--primary btn--sm" href={`/invoice/${o.id}?download=1`} target="_blank" rel="noopener">
+                        Download
+                      </a>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </section>
       )}

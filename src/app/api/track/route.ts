@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
   const ua = request.headers.get('user-agent') ?? '';
   if (!ua || BOT.test(ua)) return new NextResponse(null, { status: 204 });
 
-  const body = (await request.json().catch(() => ({}))) as { path?: string; referrer?: string };
+  const body = (await request.json().catch(() => ({}))) as { path?: string; referrer?: string; device?: string };
   const path = String(body.path ?? '/').split('?')[0].slice(0, 200);
   if (!path.startsWith('/') || /^\/(admin|api|auth)/.test(path)) return new NextResponse(null, { status: 204 });
 
@@ -26,7 +26,9 @@ export async function POST(request: NextRequest) {
 
   const ip = (request.headers.get('x-forwarded-for') ?? '').split(',')[0].trim() || request.headers.get('x-real-ip') || '';
   const day = new Date().toISOString().slice(0, 10);
-  const visitor = createHash('sha256').update(`${SALT}|${day}|${ip}|${ua}`).digest('hex').slice(0, 20);
+  // One device = one visitor: hash the browser's random device id. Fall back to a daily hash if storage is blocked.
+  const deviceKey = /^[0-9a-f-]{36}$/i.test(String(body.device ?? '')) ? `device|${body.device}` : `day|${day}|${ip}|${ua}`;
+  const visitor = createHash('sha256').update(`${SALT}|${deviceKey}`).digest('hex').slice(0, 20);
   const device = /ipad|tablet/i.test(ua) ? 'Tablet' : /mobi|android|iphone/i.test(ua) ? 'Mobile' : 'Desktop';
   const country = request.headers.get('x-vercel-ip-country');
 

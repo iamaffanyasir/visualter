@@ -64,7 +64,7 @@ export function TrafficChart({ data }: { data: Day[] }) {
                   onMouseEnter={() => setHover(i)}
                   onFocus={() => setHover(i)}
                   tabIndex={0}
-                  aria-label={`${fmtDay(d.day)}: ${d.views} views, ${d.visitors} visitors`}
+                  aria-label={`${fmtDay(d.day)}: ${d.views} views, ${d.visitors} unique devices`}
                 />
               </g>
             );
@@ -75,7 +75,7 @@ export function TrafficChart({ data }: { data: Day[] }) {
           <div className="chart__tip" style={{ left: `${((PAD.left + hover * slot + slot / 2) / W) * 100}%` }}>
             <strong>{fmtDay(h.day)}</strong>
             <span>{h.views} page views</span>
-            <span>{h.visitors} visitors</span>
+            <span>{h.visitors} unique devices</span>
           </div>
         )}
       </div>
@@ -86,7 +86,7 @@ export function TrafficChart({ data }: { data: Day[] }) {
             <tr>
               <th>Day</th>
               <th>Page views</th>
-              <th>Visitors</th>
+              <th>Unique devices</th>
             </tr>
           </thead>
           <tbody>

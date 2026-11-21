@@ -4,11 +4,15 @@ import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { AppIcon } from './AppIcon';
+import { useOwned } from '@/lib/useOwned';
 
 export type MarqueeItem = {
   key: string;
   name: string;
   meta: string;
+  /** Shown instead of meta when the signed in customer owns the product. */
+  ownedMeta?: string;
+  slug?: string;
   text: string;
   logo: string;
   logoDark?: boolean;
@@ -112,6 +116,7 @@ function Peek({ active, onEnter, onLeave, onClose }: { active: Active; onEnter: 
   const left = Math.max(16, Math.min(cx - w / 2, vw - w - 16));
   const above = rect.top > PEEK_H + 24;
   const internal = !item.href.startsWith('http');
+  const owned = useOwned();
 
   return createPortal(
     <div
@@ -132,7 +137,7 @@ function Peek({ active, onEnter, onLeave, onClose }: { active: Active; onEnter: 
         <AppIcon src={item.logo} alt="" dark={item.logoDark} />
         <div>
           <div className="peek__name">{item.name}</div>
-          <div className="peek__meta">{item.meta}</div>
+          <div className="peek__meta">{item.slug && item.ownedMeta && owned?.has(item.slug) ? item.ownedMeta : item.meta}</div>
         </div>
       </div>
       {item.shots.length ? (

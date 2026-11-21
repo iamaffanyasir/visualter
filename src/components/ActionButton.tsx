@@ -4,7 +4,8 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { formatPrice, type Product } from '@/data/products';
+import { formatPrice, productFiles, type Product } from '@/data/products';
+import { markOwned, useIsOwned } from '@/lib/useOwned';
 import { site } from '@/data/site';
 import { CHECKOUT_ENABLED, startCheckout } from '@/lib/checkout';
 import { supabaseEnabled } from '@/lib/supabase/config';
@@ -19,6 +20,7 @@ export function ActionButton({ product, small, autoOpen }: Props) {
   const pathname = usePathname();
   const a = product.action;
   const size = small ? 'btn--sm' : '';
+  const owned = useIsOwned(product.slug);
 
   const buy = async () => {
     if (!supabaseEnabled) return setSheet(true);
@@ -78,6 +80,18 @@ export function ActionButton({ product, small, autoOpen }: Props) {
         </button>
       );
     case 'buy':
+      if (owned) {
+        const files = productFiles[product.slug] ?? [];
+        return files.length === 1 ? (
+          <a className={`btn btn--primary ${size}`} href={`/api/download/${product.slug}?file=0`}>
+            Download
+          </a>
+        ) : (
+          <Link className={`btn btn--primary ${size}`} href="/account">
+            Download
+          </Link>
+        );
+      }
       return (
         <>
           <button className={`btn btn--primary ${size}`} onClick={buy}>
@@ -179,6 +193,7 @@ function CheckoutSheet({ product, price, onClose }: { product: Product; price: n
     setBusy(true);
     try {
       const outcome = await startCheckout(data.orderId as string);
+      if (outcome === 'paid') markOwned(product.slug);
       setResult({ ...data, paid: outcome === 'paid', payError: outcome === 'failed' ? 'The payment did not go through. Please try again.' : undefined });
     } catch (err) {
       setResult({ ...data, payError: err instanceof Error ? err.message : 'Could not start the payment.' });

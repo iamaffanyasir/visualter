@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ActionButton } from '@/components/ActionButton';
+import { PriceLabel } from '@/components/PriceLabel';
 import { AppIcon } from '@/components/AppIcon';
 import { Reveal } from '@/components/Reveal';
-import { actionLabel, categories, productHref, products, work, type Category } from '@/data/products';
+import { categories, productHref, products, work, type Category } from '@/data/products';
 
 export const metadata: Metadata = {
   title: 'Downloads',
@@ -80,7 +81,7 @@ export default function DownloadsPage() {
                       <div className="dl-row__meta">{p.tagline}</div>
                     </div>
                     <div className="dl-row__actions">
-                      <span className="price small">{actionLabel(p.action)}</span>
+                      <PriceLabel product={p} className="price small" />
                       <ActionButton product={p} small />
                     </div>
                   </div>

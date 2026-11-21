@@ -6,6 +6,8 @@ export function marqueeRows(): MarqueeItem[][] {
     key: `p-${p.slug}`,
     name: p.name,
     meta: `${p.platform} · ${actionLabel(p.action)}`,
+    ownedMeta: p.action.type === 'buy' ? `${p.platform} · Purchased` : undefined,
+    slug: p.slug,
     text: p.summary,
     logo: p.logo,
     logoDark: p.logoDark,

@@ -2322,3 +2322,8 @@ main {
     font-size: 32px;
   }
 }
+
+.purchased {
+  color: #1a7f37;
+  font-weight: 600;
+}

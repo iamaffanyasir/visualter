@@ -1,7 +1,8 @@
 import Link from 'next/link';
-import { actionLabel, productHref, type Product } from '@/data/products';
+import { productHref, type Product } from '@/data/products';
 import { ActionButton } from './ActionButton';
 import { AppIcon } from './AppIcon';
+import { PriceLabel } from './PriceLabel';
 
 export function ProductCard({ product: p }: { product: Product }) {
   const shots = p.shots.slice(0, p.shots[0]?.landscape ? 1 : 2);
@@ -30,7 +31,7 @@ export function ProductCard({ product: p }: { product: Product }) {
         </div>
         <p className="card__text">{p.summary}</p>
         <div className="card__foot">
-          <span className={`price ${p.action.type === 'buy' ? '' : 'price--muted'}`}>{actionLabel(p.action)}</span>
+          <PriceLabel product={p} className={`price ${p.action.type === 'buy' ? '' : 'price--muted'}`} />
           <ActionButton product={p} small />
         </div>
       </div>

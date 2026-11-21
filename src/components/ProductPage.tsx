@@ -1,11 +1,12 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import { actionLabel, byCategory, categories, getProduct, productHref, products, type Category } from '@/data/products';
+import { byCategory, categories, getProduct, productHref, products, type Category } from '@/data/products';
 import { site } from '@/data/site';
 import { ActionButton } from './ActionButton';
 import { AppIcon } from './AppIcon';
 import { Gallery } from './Gallery';
+import { PriceLabel } from './PriceLabel';
 import { Reveal } from './Reveal';
 
 export const productParams = (category: Category) =>
@@ -58,7 +59,7 @@ export function ProductPage({ category, slug }: { category: Category; slug: stri
             </div>
             <p className="product-hero__meta">
               {p.platform}
-              {p.version ? ` · Version ${p.version}` : ''} · {actionLabel(p.action)}
+              {p.version ? ` · Version ${p.version}` : ''} · <PriceLabel product={p} />
             </p>
           </Reveal>
         </div>
@@ -133,7 +134,9 @@ export function ProductPage({ category, slug }: { category: Category; slug: stri
               </div>
               <div>
                 <dt>Price</dt>
-                <dd>{actionLabel(p.action)}</dd>
+                <dd>
+                  <PriceLabel product={p} />
+                </dd>
               </div>
               {p.version && (
                 <div>

@@ -65,6 +65,12 @@ export function ActionButton({ product, small, autoOpen }: Props) {
           {small ? 'Enquire' : `Request ${product.name}`}
         </Link>
       );
+    case 'subscribe':
+      return (
+        <a className={`btn btn--primary ${size}`} href={a.href} target="_blank" rel="noopener noreferrer">
+          Subscribe
+        </a>
+      );
     case 'bundled':
       return (
         <button className={`btn ${size}`} disabled>

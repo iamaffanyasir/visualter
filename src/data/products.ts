@@ -8,6 +8,7 @@ export type Action =
   | { type: 'play'; href: string }
   | { type: 'soon' }
   | { type: 'enquire' }
+  | { type: 'subscribe'; href: string }
   | { type: 'bundled'; with: string };
 
 export type Product = {
@@ -22,6 +23,8 @@ export type Product = {
   action: Action;
   version?: string;
   live?: { href: string; label: string };
+  /** Extra link shown next to the main button, for example an enquiry about an offline edition. */
+  secondary?: { href: string; label: string };
   logo: string;
   logoDark?: boolean;
   shots: Shot[];
@@ -293,19 +296,20 @@ export const products: Product[] = [
     slug: 'labos',
     name: 'LabOS',
     category: 'software',
-    platform: 'Windows',
+    platform: 'Web, Android and Windows',
     tagline: 'The operating system for your diagnostic lab.',
-    summary: 'Bookings, samples, results, reports and payments in one fast workspace. The full LabOS, running offline on your own computer.',
+    summary: 'Bookings, samples, results, reports and payments in one fast workspace. Subscribe in minutes and run your lab from any device.',
     intro:
-      'LabOS Offline is the same LabOS that runs in the cloud, installed on one Windows computer inside your lab. Staff use it from their phones over the lab WiFi. No monthly storage bill, and no patient data ever leaves the building.',
+      'LabOS is a cloud platform for diagnostic labs. Reception, technicians and owners work in one calm workspace from any phone, tablet or computer, and always know where every sample is. Prefer to keep everything inside your building? LabOS Offline is the same software, installed on one Windows computer in your lab.',
     features: [
       { title: 'Sample Tracker', text: 'Booked, collected, processing, verification, ready, delivered. See every tube at a glance and which ones are late.' },
       { title: 'Reports on WhatsApp', text: 'Verified reports go to patients and doctors in one tap.' },
       { title: 'Money and growth', text: 'Payments, referring doctors, patient leads, analytics and AI business insights.' },
-      { title: 'Runs offline', text: 'One computer is the server. Phones and tablets connect over the lab network.' },
+      { title: 'Cloud or offline', text: 'Subscribe to LabOS Cloud, or ask for LabOS Offline to run entirely on your lab network.' },
     ],
-    action: { type: 'enquire' },
-    live: { href: 'https://labos.visualter.in', label: 'Try LabOS Cloud' },
+    action: { type: 'subscribe', href: 'https://labos.visualter.in' },
+    live: { href: 'https://labos.visualter.in', label: 'labos.visualter.in' },
+    secondary: { href: '/contact?about=labos', label: 'Ask about LabOS Offline' },
     logo: '/logos/labos.webp',
     logoDark: true,
     shots: s('labos', 3, true),
@@ -458,6 +462,8 @@ export const actionLabel = (a: Action) => {
       return 'Coming soon';
     case 'enquire':
       return 'On request';
+    case 'subscribe':
+      return 'Monthly subscription';
     case 'bundled':
       return `Included with ${a.with}`;
   }

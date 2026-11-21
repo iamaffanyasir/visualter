@@ -44,10 +44,16 @@ export function ProductPage({ category, slug }: { category: Category; slug: stri
             <p className="lede">{p.summary}</p>
             <div className="cta-row" style={{ justifyContent: 'center' }}>
               <ActionButton product={p} autoOpen />
-              {p.live && (
-                <a className="link" href={p.live.href} target="_blank" rel="noopener noreferrer">
-                  {p.live.label}
-                </a>
+              {p.secondary ? (
+                <Link className="link" href={p.secondary.href}>
+                  {p.secondary.label}
+                </Link>
+              ) : (
+                p.live && (
+                  <a className="link" href={p.live.href} target="_blank" rel="noopener noreferrer">
+                    {p.live.label}
+                  </a>
+                )
               )}
             </div>
             <p className="product-hero__meta">

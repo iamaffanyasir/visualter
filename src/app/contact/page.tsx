@@ -76,7 +76,7 @@ export default function ContactPage() {
         <div className="container">
           <Reveal className="center mb-l">
             <h2 className="title">Or write a message.</h2>
-            <p className="muted mt-s">It opens in your email app, ready to send.</p>
+            <p className="muted mt-s">It comes straight to me, and I reply by email.</p>
           </Reveal>
           <Suspense fallback={null}>
             <ContactForm />

@@ -19,9 +19,15 @@ export function Gallery({ shots, name }: { shots: Shot[]; name: string }) {
     update();
     const el = rail.current;
     if (!el) return;
+    // Images give the rail its width only once they load, so measure again as each one arrives.
     const ro = new ResizeObserver(update);
     ro.observe(el);
-    return () => ro.disconnect();
+    el.querySelectorAll('img').forEach((img) => ro.observe(img));
+    window.addEventListener('load', update);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener('load', update);
+    };
   }, [update]);
 
   const step = (dir: 1 | -1) => {
@@ -69,9 +75,9 @@ export function Gallery({ shots, name }: { shots: Shot[]; name: string }) {
             key={s.src}
             src={s.src}
             alt={`${name} screenshot ${i + 1}`}
-            loading="lazy"
             decoding="async"
             draggable={false}
+            onLoad={update}
             className={s.landscape ? 'wide' : ''}
           />
         ))}

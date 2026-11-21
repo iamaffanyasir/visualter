@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { AppIcon } from '@/components/AppIcon';
 import { PayButton } from '@/components/PayButton';
+import { isAdminEmail } from '@/lib/admin';
 import { ProfileForm } from '@/components/ProfileForm';
 import { formatPrice, getProduct, productFiles, productHref, products } from '@/data/products';
 import { site } from '@/data/site';
@@ -38,6 +39,11 @@ export default async function AccountPage() {
           <p className="eyebrow">Your account</p>
           <h1 className="headline">{first ? `Hello, ${first}.` : 'Hello.'}</h1>
           <p className="lede">{user.email}</p>
+          {isAdminEmail(user.email) && (
+            <Link className="btn btn--dark mt-m" href="/admin">
+              Open admin dashboard
+            </Link>
+          )}
         </div>
       </section>
 

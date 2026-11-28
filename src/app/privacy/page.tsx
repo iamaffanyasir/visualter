@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { site } from '@/data/site';
 
 export const metadata: Metadata = {
@@ -16,6 +17,7 @@ const toc = [
   ['security', 'Security'],
   ['apps', 'Our apps and software'],
   ['taqwa', 'Taqwa (Android app)'],
+  ['prepvyu', 'Prepvyu NEET (Android app)'],
   ['contact', 'Changes and contact'],
 ];
 
@@ -273,6 +275,15 @@ export default function PrivacyPolicyPage() {
             <p>
               If this policy changes, the updated version will be posted on this page with a new effective date.
               Questions about Taqwa&apos;s privacy: yasirmohammadaffan@gmail.com
+            </p>
+          </section>
+
+          <section id="prepvyu" className="policy__card">
+            <h2>Prepvyu NEET (Android app)</h2>
+            <p>
+              Prepvyu NEET has its own detailed privacy policy covering what the app stores on your phone, its optional Google
+              Gemini AI features and how to report AI content. Read it at{' '}
+              <Link href="/privacy/prepvyu">visualter.in/privacy/prepvyu</Link>.
             </p>
           </section>
 
